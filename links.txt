@@ -1,0 +1,15 @@
+Alif:
+https://arxiv.org/pdf/2510.09051
+
+datasets:
+Evaluation MGSM (UrduBench)
+https://huggingface.co/datasets/large-traversaal/mgsm_urdu_final/viewer/default/test?row=1
+https://arxiv.org/abs/2210.03057
+urdu:
+https://arxiv.org/pdf/2601.21000
+
+Gsm8k = SFT
+http://huggingface.co/datasets/azherali/UrduMath
+
+WIiki urdu
+https://huggingface.co/datasets/wikimedia/wikipedia/viewer/20231101.ur
