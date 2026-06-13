@@ -9,12 +9,9 @@
     },
     {
         "model": "Qalb-1.0-8B-Instruct",
-        "accuracy": 0
-    },
-    {
-        "model": "Aqal-1.0-8B",
-        "accuracy": 0
+        "accuracy": 0.32
     }
+
 
 ]
 
