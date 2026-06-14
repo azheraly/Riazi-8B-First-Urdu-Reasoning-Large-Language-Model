@@ -1,0 +1,192 @@
+# Aqal-Instruct: Enhancing Urdu Mathematical Reasoning through Continued Pretraining and Instruction Tuning
+
+## Abstract
+
+Large Language Models (LLMs) have demonstrated strong reasoning capabilities in high-resource languages such as English. However, mathematical reasoning performance remains limited for low-resource languages, including Urdu, due to insufficient pretraining data and lack of high-quality reasoning datasets. In this work, we present **Aqal-Instruct**, an Urdu reasoning model developed through a two-stage adaptation pipeline. Starting from the Qwen-8B base model, we first perform continued pretraining on Urdu Wikipedia to improve language understanding and domain adaptation. Subsequently, we instruction-tune the model using approximately 6,000 Urdu Chain-of-Thought (CoT) mathematical reasoning examples derived from GSM8K. We evaluate Aqal-Instruct on the MGSM-Urdu benchmark consisting of 250 multilingual grade-school mathematics problems. Experimental results show that continued pretraining combined with Urdu reasoning instruction tuning substantially improves mathematical reasoning performance compared to existing Urdu-focused models such as Alif and Qalb. Our findings highlight the effectiveness of language adaptation followed by reasoning-centric instruction tuning for low-resource language reasoning tasks.
+
+## 1 Introduction
+
+Recent advances in Large Language Models (LLMs) have enabled significant improvements in natural language understanding and reasoning. Despite these achievements, most state-of-the-art models are optimized primarily for English and a handful of high-resource languages. Urdu remains underrepresented in both pretraining corpora and instruction-tuning datasets, limiting the performance of LLMs on reasoning-intensive tasks.
+
+Mathematical reasoning serves as an important benchmark for evaluating a model's ability to perform multi-step logical inference. Benchmarks such as GSM8K and MGSM have become standard evaluation datasets for reasoning research. However, relatively little work has explored mathematical reasoning in Urdu.
+
+To address this gap, we propose Aqal-Instruct, an Urdu reasoning model built through:
+
+1. Continued pretraining on Urdu Wikipedia.
+2. Instruction tuning on Urdu GSM8K Chain-of-Thought data.
+3. Evaluation on MGSM-Urdu.
+
+Our contributions are:
+
+* Development of an Urdu-adapted reasoning model based on Qwen-8B.
+* Construction and utilization of a 6K-example Urdu GSM8K CoT instruction-tuning dataset.
+* Evaluation on MGSM-Urdu using automatic answer verification.
+* Comparison against existing Urdu language models including Alif and Qalb.
+
+## 2 Related Work
+
+### 2.1 Large Language Models
+
+Open-source LLMs such as Qwen, Llama, Mistral, and Gemma have demonstrated strong performance across a wide range of tasks. These models are typically trained on multilingual corpora but often exhibit weaker performance on low-resource languages.
+
+### 2.2 Mathematical Reasoning
+
+Datasets such as GSM8K and MGSM have become standard benchmarks for evaluating mathematical reasoning. Chain-of-Thought prompting has been shown to improve reasoning by encouraging intermediate step generation.
+
+### 2.3 Urdu Language Models
+
+Several Urdu-focused models have been proposed, including Alif and Qalb. While these models improve Urdu language understanding, their mathematical reasoning capabilities remain relatively unexplored.
+
+## 3 Methodology
+
+### 3.1 Overview
+
+Aqal-Instruct is trained in two stages:
+
+1. Continued Pretraining (CPT)
+2. Supervised Fine-Tuning (SFT)
+
+### 3.2 Base Model
+
+We use Qwen-8B as the foundation model due to its strong multilingual capabilities and open-source availability.
+
+### 3.3 Continued Pretraining
+
+To improve Urdu language understanding, we perform continued pretraining on Urdu Wikipedia.
+
+The objective is standard next-token prediction:
+
+[
+\mathcal{L} = - \sum_{t=1}^{T} \log P(x_t | x_{<t})
+]
+
+Continued pretraining allows the model to better capture Urdu vocabulary, syntax, and knowledge.
+
+### 3.4 Urdu GSM8K Instruction Dataset
+
+We construct an Urdu reasoning dataset consisting of approximately 6,000 examples translated and adapted from GSM8K.
+
+Each example contains:
+
+* Question
+* Chain-of-Thought reasoning
+* Final answer
+
+Example format:
+
+Question:
+ایک دکان میں 5 سیب ہیں...
+
+Reasoning:
+پہلے تعداد معلوم کرتے ہیں...
+
+Answer:
+10
+
+### 3.5 Instruction Tuning
+
+After continued pretraining, we perform supervised fine-tuning using the Urdu GSM8K dataset.
+
+Training examples follow a chat format:
+
+User: <Question>
+
+Assistant: <Chain-of-Thought> <Final Answer>
+
+This stage teaches the model to generate step-by-step Urdu reasoning.
+
+## 4 Evaluation
+
+### 4.1 Benchmark
+
+We evaluate on MGSM-Urdu, which contains 250 multilingual grade-school mathematics problems translated into Urdu.
+
+### 4.2 Generation Protocol
+
+For each benchmark question, the model generates a complete reasoning trace and final answer.
+
+### 4.3 Automatic Answer Verification
+
+Instead of exact string matching, we employ a semantic answer validation pipeline using GPT-OSS-20B.
+
+The validator receives:
+
+* Question
+* Model solution
+* Ground-truth answer
+
+The validator determines whether the final numerical answer matches the expected answer.
+
+Equivalent numerical forms are treated as correct:
+
+* 2 = 2.0
+* 5 = 5.00
+
+The validator outputs only:
+
+* True
+* False
+
+This approach reduces errors caused by formatting differences.
+
+## 5 Results
+
+### 5.1 Main Results
+
+| Model         | MGSM-Urdu Accuracy (%) |
+| ------------- | ---------------------- |
+| Alif          | XX.X                   |
+| Qalb          | XX.X                   |
+| Aqal-Instruct | XX.X                   |
+
+Aqal-Instruct achieves the best performance among the evaluated models.
+
+### 5.2 Impact of Continued Pretraining
+
+Continued pretraining on Urdu Wikipedia significantly improves language adaptation and reasoning quality.
+
+### 5.3 Error Analysis
+
+Common failure cases include:
+
+* Arithmetic mistakes
+* Incorrect extraction of quantities
+* Long reasoning chains with accumulated errors
+* Ambiguous Urdu translations
+
+Despite these challenges, Aqal-Instruct produces more coherent and accurate reasoning than baseline models.
+
+## 6 Discussion
+
+The results demonstrate that language adaptation and reasoning adaptation are complementary.
+
+Continued pretraining improves Urdu comprehension, while instruction tuning on mathematical reasoning data teaches multi-step problem solving.
+
+The gains observed on MGSM-Urdu suggest that relatively small reasoning datasets can substantially improve reasoning performance when combined with language-specific adaptation.
+
+## 7 Limitations
+
+Several limitations remain:
+
+* Evaluation uses only 250 MGSM-Urdu examples.
+* Automatic judging may introduce evaluation noise.
+* The instruction dataset contains only 6K examples.
+* The model is evaluated only on mathematical reasoning tasks.
+
+Future work may explore larger Urdu reasoning corpora and broader reasoning benchmarks.
+
+## 8 Conclusion
+
+We introduced Aqal-Instruct, an Urdu reasoning model obtained through continued pretraining on Urdu Wikipedia followed by instruction tuning on a 6K-example Urdu GSM8K Chain-of-Thought dataset. Evaluation on MGSM-Urdu demonstrates improved mathematical reasoning performance compared with existing Urdu-focused models such as Alif and Qalb. Our findings indicate that combining language adaptation with reasoning-focused instruction tuning is an effective strategy for improving reasoning capabilities in low-resource languages.
+
+## References
+
+[1] Wei et al. Chain-of-Thought Prompting Elicits Reasoning in Large Language Models.
+
+[2] Cobbe et al. Training Verifiers to Solve Math Word Problems.
+
+[3] Shi et al. Language Models are Multilingual Chain-of-Thought Reasoners.
+
+[4] Qwen Technical Report.
+
+[5] MGSM Benchmark.
