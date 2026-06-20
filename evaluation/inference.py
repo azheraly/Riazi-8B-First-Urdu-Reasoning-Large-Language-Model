@@ -12,7 +12,7 @@ load_in_8bit = False  # Use 8bit quantization to reduce memory usage. Can be Fal
 
 def main(prompt):
     model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name="azherali/Aqal-1.0-8B-Instruct",  # Choose ANY
+        model_name="azherali/Riazi-8B",  # Choose ANY
         max_seq_length=max_seq_length,
         dtype=dtype,
         load_in_4bit=load_in_4bit,

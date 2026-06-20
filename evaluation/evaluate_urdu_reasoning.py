@@ -106,7 +106,7 @@ def summarize_llm_judge_results():
     files = {
         "Alif-1.0-8B-Instruct": "alif_evaluation_scores.csv",
         "Qalb-1.0-8B-Instruct": "qalb_evaluation_scores.csv",
-        "Aqal-1.0-8B-Instruct": "aqal_evaluation_scores.csv",
+        "Riazi-8B": "aqal_evaluation_scores.csv",
     }
     metrics = [
         "correctness",
@@ -117,6 +117,7 @@ def summarize_llm_judge_results():
     ]
 
     rows = []
+
 
     for model, file in files.items():
         df = pd.read_csv(f"../results/{file}")
