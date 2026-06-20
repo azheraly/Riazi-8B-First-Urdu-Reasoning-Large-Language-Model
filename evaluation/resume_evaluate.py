@@ -28,7 +28,7 @@ def save_last_row(idx):
         f.write(str(idx))
 
 
-def main(file_path="qalb-Instruct_correct.csv"):
+def main(file_path="llama-instruct-correct.csv"):
     # Your evaluation code here
 
     df = pd.read_csv(file_path)
@@ -126,10 +126,10 @@ def main(file_path="qalb-Instruct_correct.csv"):
             data,
         )
         scores_df.to_csv(
-            "qalb_evaluation_scores.csv",
+            "llama_evaluation_scores.csv",
             mode="a",
             index=False,
-            header=not os.path.exists("qalb_evaluation_scores.csv"),
+            header=not os.path.exists("llama_evaluation_scores.csv"),
         )
         validation_results = (
             []

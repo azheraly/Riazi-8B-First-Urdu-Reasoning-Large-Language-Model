@@ -106,7 +106,8 @@ def summarize_llm_judge_results():
     files = {
         "Alif-1.0-8B-Instruct": "alif_evaluation_scores.csv",
         "Qalb-1.0-8B-Instruct": "qalb_evaluation_scores.csv",
-        "Riazi-8B": "aqal_evaluation_scores.csv",
+        "Riazi-8B": "riazi_evaluation_scores.csv",
+        "Llama-3.1-8B-Instruct": "llama_evaluation_scores.csv",
     }
     metrics = [
         "correctness",
