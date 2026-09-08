@@ -1,7 +1,7 @@
 [
     {
-        "model": "Riazi-8B",
-        "accuracy": 64.4
+        "model": "Riazi-8B-Instruct",
+        "accuracy": 82
     },
     {
         "model": "Alif-1.0-8B-Instruct",

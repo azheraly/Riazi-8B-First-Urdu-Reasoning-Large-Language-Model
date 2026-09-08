@@ -102,7 +102,7 @@ def main(file_path="../results/aqal-instruct_correct.csv"):
 
 
 def summarize_llm_judge_results():
-    
+
     files = {
         "Alif-1.0-8B-Instruct": "alif_evaluation_scores.csv",
         "Qalb-1.0-8B-Instruct": "qalb_evaluation_scores.csv",
@@ -118,7 +118,6 @@ def summarize_llm_judge_results():
     ]
 
     rows = []
-
 
     for model, file in files.items():
         df = pd.read_csv(f"../results/{file}")
@@ -139,3 +138,5 @@ def summarize_llm_judge_results():
 
 if __name__ == "__main__":
     main()
+
+
