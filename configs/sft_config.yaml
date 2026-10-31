@@ -35,6 +35,6 @@ dataset:
 
 
 paths:
-  output_dir: "Aqal-1.0-1.5B-instruct-lora-checkpoints"
-  final_model_local_save_dir_name: "Aqal-1.0-1.5B-instruct-lora" # Aql‑1.0‑7B‑Base
-  final_model_hub_save_dir_name: "Aqal-1.0-1.5B-instruct-lora" # Aql‑1.0‑7B‑Base
+  output_dir: "-lora-checkpoints"
+  final_model_local_save_dir_name: "model-instruct-lora" 
+  final_model_hub_save_dir_name: "model-instruct-lora"
